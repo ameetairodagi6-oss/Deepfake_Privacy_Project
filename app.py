@@ -8,7 +8,7 @@ import torchvision.utils as vutils
 import google.generativeai as genai
 
 # --- ADD YOUR API KEY HERE ---
-genai.configure(api_key="PASTE_YOUR_API_KEY_HERE")
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
 app = Flask(__name__)
 os.makedirs('static', exist_ok=True)
