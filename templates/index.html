@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shield.AI | Anti-Deepfake</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Dark Theme Variables */
+        :root {
+            --bg-color: #0d1117;
+            --container-bg: #161b22;
+            --text-main: #c9d1d9;
+            --text-heading: #ffffff;
+            --accent-blue: #58a6ff;
+            --accent-blue-glow: rgba(88, 166, 255, 0.4);
+            --accent-green: #2ea043;
+            --accent-green-hover: #3fb950;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            text-align: center; 
+            margin: 0; 
+            padding: 50px 20px; 
+            background-color: var(--bg-color); 
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { 
+            background: var(--container-bg); 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.5), 0px 0px 15px var(--accent-blue-glow); 
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid #30363d;
+        }
+
+        h1 { color: var(--text-heading); font-weight: 800; margin-bottom: 10px; letter-spacing: 0.5px;}
+        .subtitle { font-size: 15px; margin-bottom: 30px; color: #8b949e; line-height: 1.5;}
+
+        /* Styling the ugly default file input */
+        input[type="file"] { 
+            display: block;
+            width: 90%;
+            margin: 0 auto 20px auto;
+            padding: 10px;
+            background-color: #0d1117;
+            border: 1px dashed #30363d;
+            border-radius: 6px;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .upload-btn { 
+            background-color: var(--accent-blue); 
+            color: #0d1117; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0px 0px 10px var(--accent-blue-glow);
+        }
+
+        .upload-btn:hover { background-color: #79c0ff; transform: translateY(-2px); }
+
+        .result-section { margin-top: 40px; border-top: 1px solid #30363d; padding-top: 30px; }
+        
+        .success-text { color: var(--accent-green); font-weight: 600; font-size: 18px; margin-bottom: 5px;}
+        
+        img { 
+            max-width: 100%; 
+            height: auto;
+            margin-top: 20px; 
+            border-radius: 8px; 
+            border: 2px solid var(--accent-green); 
+            box-shadow: 0px 0px 15px rgba(46, 160, 67, 0.2);
+        }
+
+        .download-btn { 
+            background-color: var(--accent-green); 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600; 
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover { background-color: var(--accent-green-hover); }
+
+        /* The Gemini Certificate Box */
+        .cert-box {
+            background-color: rgba(46, 160, 67, 0.1);
+            color: #a3e635;
+            padding: 15px 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+            border: 1px solid rgba(46, 160, 67, 0.4);
+            text-align: left;
+        }
+        .cert-box h4 { margin: 0 0 8px 0; display: flex; align-items: center; font-size: 16px;}
+        .cert-box p { margin: 0; font-style: italic; font-size: 14px; line-height: 1.4; color: #c9d1d9;}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Shield.AI</h1>
+        <p class="subtitle">Digital Bodyguard Protocol.<br>Upload an image to inject adversarial noise and blind facial recognition models.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/jpeg, image/png" required>
+            <button class="upload-btn" type="submit">Encrypt Image</button>
+        </form>
+
+        {% if result_image %}
+            <div class="result-section">
+                <div class="success-text">✓ Protection Successfully Applied</div>
+                <p style="font-size: 14px; margin-top: 5px;">Your image is now cryptographically unreadable to generative AI.</p>
+                
+                <img src="{{ result_image }}" alt="Protected Image">
+                <br>
+                
+                <a href="{{ result_image }}" download="Protected_Face.jpg">
+                    <button class="download-btn">Download Protected Asset</button>
+                </a>
+
+                {% if certificate %}
+                <div class="cert-box">
+                    <h4>🛡️ Verified Protection Certificate</h4>
+                    <p>{{ certificate }}</p>
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
